@@ -3,7 +3,7 @@ FROM debian:bullseye
 
 # Install necessary packages
 RUN apt-get update && \
-    apt-get install -y wget unzip lib32gcc-s1 procps ssh && \
+    apt-get install -y wget zip unzip lib32gcc-s1 procps ssh && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set working directory

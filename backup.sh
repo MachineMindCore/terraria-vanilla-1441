@@ -15,4 +15,3 @@ ZIP_FILENAME="worlds_backup_$CURRENT_DATETIME.zip"
 # Create the zip archive
 zip -r "$BRIDGE_DIR/$ZIP_FILENAME" "$SOURCE_DIR"
 scp "$BRIDGE_DIR/$ZIP_FILENAME" "$DEST_DIR"
-
