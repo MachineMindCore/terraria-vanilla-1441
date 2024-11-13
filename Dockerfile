@@ -14,6 +14,9 @@ RUN wget -q https://terraria.org/api/download/pc-dedicated-server/terraria-serve
 RUN unzip terraria-server-1449.zip -d /terraria-server
 RUN rm terraria-server-1449.zip
 
+# Add worlds backup folder
+RUN mkdir /terraria-server/worlds
+
 RUN mv /terraria-server/1449/Linux/* /terraria-server/
 RUN rm -rf /terraria-server/1449
 RUN chmod +x /terraria-server/TerrariaServer 
