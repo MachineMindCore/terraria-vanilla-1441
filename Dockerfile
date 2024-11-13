@@ -23,11 +23,10 @@ RUN chmod +x /terraria-server/TerrariaServer.bin.x86_64
 # Expose port
 EXPOSE 7777
 
-# Persistent data
-VOLUME ["/terraria-server/1449/Linux/worlds"]
-
 # Copy server startup script if needed
 COPY start-server.sh /terraria-server/start-server.sh
+COPY backup.sh /terraria-server/backup.sh
+RUN chmod +x /terraria-server/backup.sh
 RUN chmod +x /terraria-server/start-server.sh
 
 # Start the server
