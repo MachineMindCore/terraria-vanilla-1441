@@ -1,10 +1,12 @@
-FROM debian:bullseye AS base
+FROM mono:6.10.0.104-slim AS base
 
-RUN apt-get update && apt-get install -y unzip wget mono-complete
+# Install necessary libraries for compatibility
+RUN apt-get update && apt-get install -y unzip wget libgdiplus
 
-# add the bootstrap file
-COPY bootstrap.sh /terraria-server/bootstrap.sh
+# Set environment variable to disable Windows Forms
+ENV MONO_MWF_USE_WINDOWS_FALSE=1
 
+# Download and set up Terraria server
 ENV DL_LINK=https://terraria.org/api/download/pc-dedicated-server/terraria-server-1441.zip
 ENV DL_VERSION=1441
 ENV DL_FILE=terraria-server-1441.zip
@@ -13,31 +15,8 @@ ADD $DL_LINK /$DL_FILE
 
 RUN unzip /$DL_FILE -d /terraria && \
     mv /terraria/$DL_VERSION/Linux/* /terraria-server && \
-    #Linux subfolder does not include any config text file, oddly.
-    mv /terraria/$DL_VERSION/Windows/serverconfig.txt /terraria-server/serverconfig-default.txt && \
     chmod +x /terraria-server/TerrariaServer && \
     chmod +x /terraria-server/TerrariaServer.bin.x86_64
 
-FROM mono:6.10.0.104-slim
-LABEL maintainer="Ryan Sheehan <rsheehan@gmail.com>"
-
-# documenting ports
-EXPOSE 7777
-
-# env used in the bootstrap
-ENV LOGPATH=/terraria-server/logs
-ENV WORLDPATH=/root/.local/share/Terraria/Worlds
-ENV WORLD_FILENAME=""
-ENV CONFIGPATH=/config
-ENV CONFIG_FILENAME="serverconfig.txt"
-
-VOLUME [ "${WORLDPATH}", "${CONFIGPATH}", "${LOGPATH}" ]
-
-COPY --from=base /terraria-server/ /terraria-server/
-
-# Set working directory to server
-WORKDIR /terraria-server
-ENV MONO_MWF_USE_WINDOWS_FALSE=1
-
-ENTRYPOINT [ "/bin/sh", "bootstrap.sh" ]
-
+# Copy bootstrap script
+COPY bootstrap.sh /terraria-server/bootstrap.sh
