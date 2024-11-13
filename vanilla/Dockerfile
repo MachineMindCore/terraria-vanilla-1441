@@ -1,4 +1,4 @@
-FROM mono:6.10.0.104-slim AS base
+FROM debian:bullseye AS base
 
 # Install necessary libraries for compatibility
 RUN apt-get update && apt-get install -y unzip wget libgdiplus
