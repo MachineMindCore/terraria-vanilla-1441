@@ -10,9 +10,9 @@ RUN apt-get update && \
 WORKDIR /terraria-server
 
 # Download and extract the Terraria server files
-RUN wget -q https://terraria.org/api/download/pc-dedicated-server/terraria-server-1449.zip && \
-    unzip terraria-server-1449.zip -d /terraria-server && \
-    rm terraria-server-1449.zip &&
+RUN wget -q https://terraria.org/api/download/pc-dedicated-server/terraria-server-1449.zip
+RUN unzip terraria-server-1449.zip -d /terraria-server
+RUN rm terraria-server-1449.zip
 
 RUN chmod +x /terraria-server/1449/Linux/TerrariaServer 
 RUN chmod +x /terraria-server/1449/Linux/TerrariaServer.exe 
