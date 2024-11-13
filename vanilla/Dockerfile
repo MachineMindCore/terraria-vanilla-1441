@@ -35,7 +35,6 @@ ENV CONFIG_FILENAME="serverconfig.txt"
 VOLUME [ "${WORLDPATH}", "${CONFIGPATH}", "${LOGPATH}" ]
 
 COPY --from=base /terraria-server/ /terraria-server/
-COPY serverconfig.txt /terraria-server/config/
 
 # Set working directory to server
 WORKDIR /terraria-server
