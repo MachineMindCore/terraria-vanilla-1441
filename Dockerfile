@@ -25,9 +25,5 @@ VOLUME ["/terraria-server/1449/Linux/worlds"]
 COPY start-server.sh /terraria-server/start-server.sh
 RUN chmod +x /terraria-server/start-server.sh
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD pgrep TerrariaServer || exit 1
-
 # Start the server
 ENTRYPOINT ["/terraria-server/start-server.sh"]
