@@ -32,5 +32,7 @@ COPY backup.sh /terraria-server/backup.sh
 RUN chmod +x /terraria-server/backup.sh
 RUN chmod +x /terraria-server/start-server.sh
 
+VOLUME [ "/root/.local/share/Terraria/" ]
+
 # Start the server
 ENTRYPOINT ["/terraria-server/start-server.sh"]
