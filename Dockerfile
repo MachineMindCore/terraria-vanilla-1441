@@ -3,7 +3,7 @@ FROM debian:bullseye
 
 # Install necessary packages
 RUN apt-get update && \
-    apt-get install -y wget unzip lib32gcc-s1 procps && \
+    apt-get install -y wget unzip lib32gcc-s1 procps ssh && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
@@ -14,9 +14,11 @@ RUN wget -q https://terraria.org/api/download/pc-dedicated-server/terraria-serve
 RUN unzip terraria-server-1449.zip -d /terraria-server
 RUN rm terraria-server-1449.zip
 
-RUN chmod +x /terraria-server/1449/Linux/TerrariaServer 
-RUN chmod +x /terraria-server/1449/Linux/TerrariaServer.exe 
-RUN chmod +x /terraria-server/1449/Linux/TerrariaServer.bin.x86_64
+RUN mv /terrraia-server/1449/Linux/* /terraria-server/
+RUN rm -rf /terraria-server/1449
+RUN chmod +x /terraria-server/TerrariaServer 
+RUN chmod +x /terraria-server/TerrariaServer.exe 
+RUN chmod +x /terraria-server/TerrariaServer.bin.x86_64
 
 # Expose port
 EXPOSE 7777
