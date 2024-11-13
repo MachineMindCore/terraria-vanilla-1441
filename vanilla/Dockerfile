@@ -14,6 +14,7 @@ ENV DL_FILE=terraria-server-1441.zip
 ADD $DL_LINK /$DL_FILE
 
 RUN unzip /$DL_FILE -d /terraria && \
+    mkdir /terraria-server \
     mv /terraria/$DL_VERSION/Linux/* /terraria-server && \
     chmod +x /terraria-server/TerrariaServer && \
     chmod +x /terraria-server/TerrariaServer.bin.x86_64
