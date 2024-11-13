@@ -12,10 +12,11 @@ WORKDIR /terraria-server
 # Download and extract the Terraria server files
 RUN wget -q https://terraria.org/api/download/pc-dedicated-server/terraria-server-1449.zip && \
     unzip terraria-server-1449.zip -d /terraria-server && \
-    rm terraria-server-1449.zip && \
-    chmod +x /terraria-server/1449/Linux/TerrariaServer \
-    chmod +x /terraria-server/1449/Linux/TerrariaServer.exe \
-    chmod +x /terraria-server/1449/Linux/TerrariaServer.bin.x86_64
+    rm terraria-server-1449.zip &&
+
+RUN chmod +x /terraria-server/1449/Linux/TerrariaServer 
+RUN chmod +x /terraria-server/1449/Linux/TerrariaServer.exe 
+RUN chmod +x /terraria-server/1449/Linux/TerrariaServer.bin.x86_64
 
 # Expose port
 EXPOSE 7777
