@@ -1,4 +1,6 @@
-FROM alpine:3.15.0 AS base
+FROM debian:bullseye AS base
+
+RUN apt-get update && apt-get install -y unzip wget
 
 RUN apk add --update-cache \
     unzip
@@ -38,6 +40,7 @@ COPY --from=base /terraria-server/ /terraria-server/
 
 # Set working directory to server
 WORKDIR /terraria-server
+ENV MONO_MWF_USE_WINDOWS_FALSE=1
 
 ENTRYPOINT [ "/bin/sh", "bootstrap.sh" ]
 
