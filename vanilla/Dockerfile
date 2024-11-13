@@ -1,6 +1,6 @@
 FROM debian:bullseye AS base
 
-RUN apt-get update && apt-get install -y unzip wget
+RUN apt-get update && apt-get install -y unzip wget mono-complete
 
 # add the bootstrap file
 COPY bootstrap.sh /terraria-server/bootstrap.sh
@@ -14,7 +14,7 @@ ADD $DL_LINK /$DL_FILE
 RUN unzip /$DL_FILE -d /terraria && \
     mv /terraria/$DL_VERSION/Linux/* /terraria-server && \
     #Linux subfolder does not include any config text file, oddly.
-    #mv /terraria/$DL_VERSION/Windows/serverconfig.txt /terraria-server/serverconfig-default.txt && \
+    mv /terraria/$DL_VERSION/Windows/serverconfig.txt /terraria-server/serverconfig-default.txt && \
     chmod +x /terraria-server/TerrariaServer && \
     chmod +x /terraria-server/TerrariaServer.bin.x86_64
 
