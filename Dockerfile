@@ -3,7 +3,7 @@ FROM debian:bullseye
 
 # Install necessary packages
 RUN apt-get update && \
-    apt-get install -y wget unzip lib32gcc-s1 screen && \
+    apt-get install -y wget unzip lib32gcc-s1 procps && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
@@ -21,15 +21,13 @@ EXPOSE 7777
 # Persistent data
 VOLUME ["/terraria-server/1449/Linux/worlds"]
 
-# Copy server configuration file if needed
-# COPY serverconfig.txt /terraria-server/serverconfig.txt
+# Copy server startup script if needed
+COPY start-server.sh /terraria-server/start-server.sh
+RUN chmod +x /terraria-server/start-server.sh
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
   CMD pgrep TerrariaServer || exit 1
 
-# Start the server using a script
-COPY start-server.sh /terraria-server/start-server.sh
-RUN chmod +x /terraria-server/start-server.sh
-
+# Start the server
 ENTRYPOINT ["/terraria-server/start-server.sh"]
