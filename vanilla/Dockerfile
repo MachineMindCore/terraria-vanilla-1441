@@ -1,6 +1,6 @@
 FROM debian:bullseye AS base
 
-RUN apt-get update && apt-get install -y unzip wget
+RUN apt-get update && apt-get install -y unzip wget apk
 
 RUN apk add --update-cache \
     unzip
